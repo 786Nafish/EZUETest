@@ -1,0 +1,51 @@
+
+4th Question: 
+Build REST APIs
+    1. Create users
+    2. Read user data
+    3. Update user data
+    4. Delete a few attributes of user data and
+    5. Delete user records completely
+
+1. Create Users (POST /users)
+@PostMapping("/users")
+public ResponseEntity<String> createUser(@RequestBody User newUser) {
+    // Logic to save the new user in the database
+    userService.createUser(newUser);
+    return new ResponseEntity<>("User created successfully", HttpStatus.CREATED);
+}
+
+2. Read User Data (GET /users/{userId})
+@GetMapping("/users/{userId}")
+public ResponseEntity<User> getUser(@PathVariable Long userId) {
+    // Logic to retrieve user data from the database
+    User user = userService.getUserById(userId);
+    return new ResponseEntity<>(user, HttpStatus.OK);
+}
+
+3. Update User Data (PUT /users/{userId})
+@PutMapping("/users/{userId}")
+public ResponseEntity<String> updateUser(@PathVariable Long userId, @RequestBody User updatedUser) {
+    // Logic to update user data in the database
+    userService.updateUser(userId, updatedUser);
+    return new ResponseEntity<>("User updated successfully", HttpStatus.OK);
+}
+
+4. Delete a Few Attributes of User Data (PATCH /users/{userId})
+@PatchMapping("/users/{userId}")
+public ResponseEntity<String> deleteAttributes(@PathVariable Long userId, @RequestBody Map<String, Object> updates) {
+    // Logic to delete specific attributes of user data in the database
+    userService.deleteAttributes(userId, updates);
+    return new ResponseEntity<>("Attributes deleted successfully", HttpStatus.OK);
+}
+
+5. Delete User Records Completely (DELETE /users/{userId})
+@DeleteMapping("/users/{userId}")
+public ResponseEntity<String> deleteUser(@PathVariable Long userId) {
+    // Logic to delete the user from the database
+    userService.deleteUser(userId);
+    return new ResponseEntity<>("User deleted successfully", HttpStatus.OK);
+}
+
+
+
